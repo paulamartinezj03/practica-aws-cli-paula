@@ -11,6 +11,9 @@ EC2_ID_LIST=$(aws ec2 describe-instances \
                 --query "Reservations[*].Instances[*].InstanceId" \
                 --output text)
 
+if [ $EC2_ID_LIST ] ; then
+    exit 0
+fi
 # Eliminamos todas las intancias que están en ejecución
 aws ec2 terminate-instances \
     --instance-ids $EC2_ID_LIST
