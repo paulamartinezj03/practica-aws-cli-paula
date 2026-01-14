@@ -7,7 +7,7 @@ export AWS_PAGER=""
 
 # Guardamos una lista con todos los identificadores de las instancias EC2
 SG_ID_LIST=$(aws ec2 describe-security-groups \
-            --query "SecurityGroups[*].GroupId" \
+            --query "SecurityGroups[?GroupName!='default'].GroupId" \
             --output text)
 
 # Recorremos la lista de ids y eliminamos las instancias
