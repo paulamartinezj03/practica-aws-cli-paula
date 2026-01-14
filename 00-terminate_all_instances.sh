@@ -17,3 +17,7 @@ fi
 # Eliminamos todas las intancias que están en ejecución
 aws ec2 terminate-instances \
     --instance-ids $EC2_ID_LIST
+#Esperamos a que las instancias se terminen
+aws ec2 wait instance-terminated \
+    --instance-ids $EC2_ID_LIST
+    echo "Todas las instancias han sido terminadas."
