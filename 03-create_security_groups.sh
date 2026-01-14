@@ -54,3 +54,53 @@ aws ec2 authorize-security-group-ingress \
     --protocol tcp \
     --port 3306 \
     --cidr 0.0.0.0/0
+
+#---------------------------------------------------------------------
+
+# Creamos el grupo de seguridad: nfs-server-sg
+aws ec2 create-security-group \
+    --group-name $SECURITY_GROUP_NFS \
+    --description "Reglas para el servidor NFS"
+
+# Creamos una regla de accesso SSH
+aws ec2 authorize-security-group-ingress \
+    --group-name $SECURITY_GROUP_NFS \
+    --protocol tcp \
+    --port 22 \
+    --cidr 0.0.0.0/0
+
+# Creamos una regla de accesso para MySQL
+aws ec2 authorize-security-group-ingress \
+    --group-name $SECURITY_GROUP_NFS \
+    --protocol tcp \
+    --port 2049 \
+    --cidr 0.0.0.0/0
+
+
+#---------------------------------------------------------------------
+
+# Creamos el grupo de seguridad: balanceador-sg
+aws ec2 create-security-group \
+    --group-name $SECURITY_GROUP_BALANCER \
+    --description "Reglas para el servidor NFS"
+
+# Creamos una regla de accesso SSH
+aws ec2 authorize-security-group-ingress \
+    --group-name $SECURITY_GROUP_BALANCER \
+    --protocol tcp \
+    --port 22 \
+    --cidr 0.0.0.0/0
+
+# Creamos una regla de accesso para MySQL
+aws ec2 authorize-security-group-ingress \
+    --group-name $SECURITY_GROUP_BALANCER \
+    --protocol tcp \
+    --port 80 \
+    --cidr 0.0.0.0/0
+
+    # Creamos una regla de accesso para MySQL
+aws ec2 authorize-security-group-ingress \
+    --group-name $SECURITY_GROUP_BALANCER \
+    --protocol tcp \
+    --port 443 \
+    --cidr 0.0.0.0/0

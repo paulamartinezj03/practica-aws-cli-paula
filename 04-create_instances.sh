@@ -8,7 +8,7 @@ export AWS_PAGER=""
 # Variables de configuración
 source .env
 
-# Creamos una intancia EC2 para el frontend
+# Creamos una instancia EC2 para el frontend
 aws ec2 run-instances \
     --image-id $AMI_ID \
     --count $COUNT \
@@ -17,7 +17,7 @@ aws ec2 run-instances \
     --security-groups $SECURITY_GROUP_FRONTEND \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME_FRONTEND}]"
 
-# Creamos una intancia EC2 para el backend
+# Creamos una instancia EC2 para el backend
 aws ec2 run-instances \
     --image-id $AMI_ID \
     --count $COUNT \
@@ -25,3 +25,19 @@ aws ec2 run-instances \
     --key-name $KEY_NAME \
     --security-groups $SECURITY_GROUP_BACKEND \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME_BACKEND}]"
+# Creamos una instancia EC2 para el servidor NFS
+aws ec2 run-instances \
+    --image-id $AMI_ID \
+    --count $COUNT \
+    --instance-type $INSTANCE_TYPE \
+    --key-name $KEY_NAME \
+    --security-groups $SECURITY_GROUP_NFS_SERVER \
+    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME_NFS_SERVER}]"
+# Creamos una instancia EC2 para el balancer
+aws ec2 run-instances \
+    --image-id $AMI_ID \
+    --count $COUNT \
+    --instance-type $INSTANCE_TYPE \
+    --key-name $KEY_NAME \
+    --security-groups $SECURITY_GROUP_BALANCER \
+    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME_BALANCER}]"
