@@ -1,5 +1,8 @@
 #!/bin/bash
-set -x
+set -ex
+
+# Ejecutamos los scripts en el orden adecuado
+
 ./00-terminate_all_instances.sh
 ./01-delete_all_security_groups.sh
 ./02-delete_all_elastic_ips.sh
